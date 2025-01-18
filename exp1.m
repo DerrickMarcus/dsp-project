@@ -43,6 +43,8 @@ end
 x_n = ifft(X_k, N);
 
 X_est = sft(x_n, N, K, B, L, d, W);
+% X_est = X_est / max(abs(X_est)) * max(abs(X_k));
+X_est = X_est / sum(abs(X_est)) * sum(abs(X_k));
 
 % 绘制幅度谱真值
 figure;

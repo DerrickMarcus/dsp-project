@@ -36,7 +36,7 @@ a2 = 2 - 2j;
 % 数字频率
 f1 = -0.5;
 delta_f = linspace(0, 1, 10);
-delta_f = delta_f(2:end-1);
+delta_f = delta_f(2:end - 1);
 
 % 复高斯噪声的标准差sigma
 std_dev = 0.1;
@@ -49,7 +49,7 @@ for idx = 1:length(delta_f)
     f2 = f1 + delta_f(idx);
 
     noise = std_dev / sqrt(2) * (randn(1, N) + 1j * randn(1, N));
-    % 有噪声的频域系数信号x[n]
+    % 有噪声的频域稀疏信号x[n]
     x_n = a1 * exp(1j * 2 * pi * f1 * (0:N - 1)) + ...
         a2 * exp(1j * 2 * pi * f2 * (0:N - 1)) + noise;
 
@@ -57,10 +57,14 @@ for idx = 1:length(delta_f)
 
     % SFT算法
     X_est_sft = sft(x_n, N, K, B, L, d, W);
+    % X_est_sft = X_est_sft / max(abs(X_est_sft)) * max(abs(X_k));
+    X_est_sft = X_est_sft / sum(abs(X_est_sft)) * sum(abs(X_k));
     l1_error_sft(idx) = sum(abs(X_est_sft - X_k)) / K;
 
     % OMP算法
     X_est_omp = omp(A * x_n.', A, idft_mtx, K).';
+    % X_est_omp = X_est_omp / max(abs(X_est_omp)) * max(abs(X_k));
+    X_est_omp = X_est_omp / sum(abs(X_est_omp)) * sum(abs(X_k));
     l1_error_omp(idx) = sum(abs(X_est_omp - X_k)) / K;
 end
 

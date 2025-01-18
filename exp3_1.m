@@ -37,6 +37,8 @@ d = 4;
 W = 400;
 
 X_est_sft = sft(x_n, N, K, B, L, d, W);
+% X_est_sft = X_est_sft / max(abs(X_est_sft)) * max(abs(X_k));
+X_est_sft = X_est_sft / sum(abs(X_est_sft)) * sum(abs(X_k));
 
 %% OMP算法
 
@@ -49,6 +51,8 @@ y_n = A * x_n.';
 idft_mtx = dftmtx(N).' / N;
 
 X_est_omp = omp(y_n, A, idft_mtx, K);
+% X_est_omp = X_est_omp / max(abs(X_est_omp)) * max(abs(X_k));
+X_est_omp = X_est_omp / sum(abs(X_est_omp)) * sum(abs(X_k));
 
 %% 画图
 

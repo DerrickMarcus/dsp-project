@@ -37,7 +37,7 @@ a2 = 2 - 2j;
 f1 = -0.15;
 f2 = 0.25;
 
-snr_values = linspace(5, 50, 20);
+snr_values = linspace(10, 100, 20);
 
 l1_error_sft = zeros(size(snr_values));
 l1_error_omp = zeros(size(snr_values));
@@ -56,10 +56,14 @@ for idx = 1:length(snr_values)
 
     % SFT算法
     X_est_sft = sft(x_n, N, K, B, L, d, W);
+    % X_est_sft = X_est_sft / max(abs(X_est_sft)) * max(abs(X_k));
+    X_est_sft = X_est_sft / sum(abs(X_est_sft)) * sum(abs(X_k));
     l1_error_sft(idx) = sum(abs(X_est_sft - X_k)) / K;
 
     % OMP算法
     X_est_omp = omp(A * x_n.', A, idft_mtx, K).';
+    % X_est_omp = X_est_omp / max(abs(X_est_omp)) * max(abs(X_k));
+    X_est_omp = X_est_omp / sum(abs(X_est_omp)) * sum(abs(X_k));
     l1_error_omp(idx) = sum(abs(X_est_omp - X_k)) / K;
 end
 
