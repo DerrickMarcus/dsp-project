@@ -43,7 +43,7 @@ X_est_sft = X_est_sft / sum(abs(X_est_sft)) * sum(abs(X_k));
 %% OMP算法
 
 % 观测维度M
-M = 256;
+M = 512;
 % 生成高斯测量矩阵，得到观测信号y[n]
 A = randn(M, N);
 y_n = A * x_n.';

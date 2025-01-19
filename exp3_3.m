@@ -25,7 +25,7 @@ if mod(N, B) ~= 0
 end
 
 % 观测维度M
-M = 256;
+M = 512;
 A = randn(M, N);
 % 生成IDFT矩阵
 idft_mtx = dftmtx(N).' / N;
