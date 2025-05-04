@@ -175,7 +175,7 @@ end
 
 设定实验参数为：$N=4096,K=10,d=4$。运行结果如下：
 
-![exp1_spectrum](.\image\exp1_spectrum.png)
+![exp1_spectrum](..\image\exp1_spectrum.png)
 
 可见 SFT 算法较为准确地找出了所有稀疏的频点。幅值较小，相对大小不一致，可能是因为丢弃了大部分原始序列中的点，降采样操作也会造成能量损失。
 
@@ -189,7 +189,7 @@ end
 
 控制信号长度 $n$ 不变时，运行时间约为正比于 $\sqrt{k}$ ， 仿真得到：
 
-![run_time_vs_K](.\image\run_time_vs_K.png)
+![run_time_vs_K](..\image\run_time_vs_K.png)
 
 上图中横坐标为 $\sqrt{k}$ 。可见随着稀疏度变化，算法的运行时间波动很大，但总体上还是随着稀疏度的增长而增长的。
 
@@ -197,11 +197,11 @@ end
 
 控制稀疏度 $k$ 不变时，运行时间约为正比于 $\log_2n \sqrt{n\log_2n}$ ，若令 $x=\log_2n$ ，则复杂度约为 $2^{\frac x2}x^{\frac32}$ ，比指数增长略快。以 $x$ 为横坐标，得到图像：
 
-![run_time_vs_N1](.\image\run_time_vs_N1.png)
+![run_time_vs_N1](..\image\run_time_vs_N1.png)
 
 若以 $\log_2n \sqrt{n\log_2n}$ 为横坐标，得到：
 
-![run_time_vs_N2](.\image\run_time_vs_N2.png)
+![run_time_vs_N2](..\image\run_time_vs_N2.png)
 
 比线性增长略快，但是几乎在 $O(\log_2n \sqrt{n\log_2n})$ 范围之内。
 
@@ -300,11 +300,11 @@ end
 
 生成频域稀疏信号，分别使用 SFT 算法和 OMP 算法，得到信号的频谱，对比如下：
 
-![exp3_spectrum256](.\image\exp3_spectrum256.png)
+![exp3_spectrum256](..\image\exp3_spectrum256.png)
 
 本次实验中设置信号长度为 $N=4096$ ，如果观测维度设置为 $M=256$ ，结果如上。与 SFT 算法相比，OMP 算法遗漏了原频谱中的一个频点，错误地找出了一个原本不存在的频点，但整体效果还是不错的。如果进一步提升观测维度 $M=512$ ，结果如下：
 
-![exp3_spectrum](.\image\exp3_spectrum.png)
+![exp3_spectrum](..\image\exp3_spectrum.png)
 
 可见增加观测维度后，OMP 算法成功找出了所有大值频点，没有出现遗漏或者错误，但是运行时间明显增加，因此实际使用中需要在精确度和复杂度之间做权衡。
 
@@ -316,7 +316,7 @@ end
 
 其他因素不变时，两个频率分量的频率间隔对 SFT 和 OMP 算法频谱估计的 $l_1$ 误差的影响：
 
-![exp3_2](.\image\exp3_2.png)
+![exp3_2](..\image\exp3_2.png)
 
 在上图中，对于 OMP 算法，频率间隔为 0.5 左右时误差达到最大，增大或减小频率间隔时误差都将减小。我设置的第一个频率为 $0.5$ 为高频，频率间隔为 0.5 意味着第二个数字频率在 0 频附近。频率间隔接近 0 或 1 意味着第二个数字频率也在 $\pm0.5$ 的高频附近，此时误差较小。原因可能是两个信号频率较为接近时，能量能量更为集中，抗噪声干扰能力强，因此算法能够更准确地排除干扰并找出原有频率分量。对于 SFT 算法，也和 OMP 算法一样大致呈“中间高，两边低”的趋势，只是最大值在 $\Delta f\approx0.6$ 的时候取到。
 
@@ -324,7 +324,7 @@ end
 
 其他因素不变时，信噪比对 SFT 和 OMP 算法频谱估计的 $l_1$ 误差的影响：
 
-![exp3_3](.\image\exp3_3.png)
+![exp3_3](..\image\exp3_3.png)
 
 结果是在意料之中的，信噪比越大，噪声功率越小，造成额外干扰的频率分量的幅度越小，能够让 SFT 算法和 OMP 算法更精准地找出原本稀疏的频率分量， $l_1$ 误差也就越小。同时 SFT 算法略优于 OMP 算法， 但是波动较大，稳定性略差。
 
